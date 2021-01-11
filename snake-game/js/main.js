@@ -58,6 +58,15 @@ function iniciarJogo() {
   if (snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
   if (snake[0].y < 0 * box && direction == "up") snake[0].y = 16 * box;
 
+  /* verificar se a cabeça  da cobra choca com o rabo da cobra */
+  for (let i = 1; i < snake.length; i++) {
+    if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+      /* terminar o jogo parando o intervalo */
+      clearInterval(jogo);
+      alert("Game Over :(");
+    }
+  }
+
   /* chamar as funçoes inicias */
   criarBG();
   criarSnake();
