@@ -73,8 +73,14 @@ function iniciarJogo() {
   if (direction == "up") snakeY -= box;
   if (direction == "down") snakeY += box;
 
-  /* para retirar o ultimo elemento do array */
-  snake.pop();
+  if (snakeX != food.x || snakeY != food.y) {
+    /* para retirar o ultimo elemento do array */
+    snake.pop();
+  } else {
+    /* criar nova comida em outra coordenada */
+    food.x = Math.floor(Math.random() * 15 + 1) * box;
+    food.y = Math.floor(Math.random() * 15 + 1) * box;
+  }
 
   /* criar um novo cabeçalho */
   let newHead = {
