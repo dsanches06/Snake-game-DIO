@@ -3,13 +3,18 @@ let canvas = document.getElementById("snake");
 let context = canvas.getContext("2d");
 let box = 32;
 let snake = [];
-
+let direction = "right";
 /* coordenadas default da cobra */
 snake[0] = {
   x: 8 * box,
   y: 8 * box,
 };
-let direction = "right";
+
+/* criar a comida da cobra em varias coordenadas */
+let food = {
+  x: Math.floor(Math.random() * 15 + 1) * box,
+  y: Math.floor(Math.random() * 15 + 1) * box,
+};
 
 function criarBG() {
   context.fillStyle = "lightgreen";
@@ -22,6 +27,12 @@ function criarSnake() {
     context.fillStyle = "green";
     context.fillRect(snake[i].x, snake[i].y, box, box);
   }
+}
+
+/* Função para desenhar a comida da cobra*/
+function drawFood() {
+  context.fillStyle = "red";
+  context.fillRect(food.x, food.y, box, box);
 }
 
 /* criar eventos das teclas de direcção do teclado */
@@ -41,7 +52,7 @@ function update(event) {
 
 /* Função que inicia o jogo */
 function iniciarJogo() {
-  /* definir direcoes da cobra sem sair da canvas*/
+  /* definir direcoes da cobra sem sair da zona de jogo*/
   if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
   if (snake[0].x < 0 * box && direction == "left") snake[0].x = 16 * box;
   if (snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
@@ -50,6 +61,7 @@ function iniciarJogo() {
   /* chamar as funçoes inicias */
   criarBG();
   criarSnake();
+  drawFood();
 
   /* criar posicao inicial da cobra  */
   let snakeX = snake[0].x;
